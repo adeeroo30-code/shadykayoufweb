@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שאדי כיוף | מאמן אישי</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff; 
+            --secondary: #7000ff;
+            --bg: #050505;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Heebo', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg); color: white; overflow-x: hidden; line-height: 1.6; }
+
+        /* --- INSANE BACKGROUND --- */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; width: 100%; padding: 1.5rem 5%; display: flex; 
+            justify-content: space-between; align-items: center; z-index: 1000;
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+        }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -1px; color: var(--primary); text-transform: uppercase; }
+        .nav-links a { color: white; text-decoration: none; margin-right: 2rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HERO --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 10%; }
+        .hero h1 { font-size: clamp(3.5rem, 12vw, 8rem); font-weight: 900; line-height: 0.95; letter-spacing: -2px; margin-bottom: 2rem; }
+        .hero span { color: var(--primary); text-shadow: 0 0 30px rgba(0, 242, 255, 0.5); }
+
+        /* --- SECTIONS --- */
+        section { padding: 120px 10%; position: relative; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 3rem; text-transform: uppercase; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        /* --- GLASS CARDS --- */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            padding: 3rem;
+            border-radius: 32px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover { transform: translateY(-10px); border-color: var(--primary); background: rgba(255,255,255,0.05); }
+
+        /* --- FORM --- */
+        .contact-form { max-width: 600px; margin: 0 auto; }
+        .input-group { margin-bottom: 1.5rem; position: relative; }
+        input, textarea, select {
+            width: 100%; padding: 1.2rem; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border); border-radius: 12px; color: white; outline: none; transition: 0.3s;
+            font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,242,255,0.2); }
+        select option { background: var(--bg); color: white; }
+        button.submit-btn {
+            width: 100%; padding: 1.2rem; background: var(--primary); color: black;
+            border: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; font-size: 1.1rem;
+            cursor: pointer; transition: 0.3s;
+        }
+        button.submit-btn:hover { letter-spacing: 1px; box-shadow: 0 0 30px var(--primary); }
+
+        /* --- UTILITIES --- */
+        .gradient-text { background: linear-gradient(45deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .step-num { font-size: 5rem; font-weight: 900; opacity: 0.1; position: absolute; top: 10px; left: 20px; }
+
+        @media (max-width: 768px) {
+            nav { padding: 1rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+    <div class="logo">Shady Kayouf</div>
+    <div class="nav-links">
+        <a href="#about">אודות</a>
+        <a href="#why">השיטה</a>
+        <a href="#contact">הצטרפו עכשיו</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1 class="reveal">גוף של<br><span>אלופים</span></h1>
+    <p class="reveal" style="max-width: 700px; font-size: 1.2rem; opacity: 0.8;">העולם לא צריך עוד מאמנים בינוניים. אתם צריכים תוכנית מבוססת נתונים לאסתטיקה מטורפת, תזונה נכונה וביצועי שיא.</p>
+    <a href="#contact" class="glass-card reveal" style="margin-top: 3rem; padding: 1rem 3rem; color: var(--primary); font-weight: 800; text-decoration: none;">התחילו את השינוי שלכם ←</a>
+</section>
+
+<section id="about">
+    <div class="grid">
+        <div class="reveal">
+            <h2 class="gradient-text">המשימה</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">אני שאדי כיוף. כסגן אלוף IBFF.MBC לשנת 2023 בקטגוריית Classic Physique, אני יודע בדיוק מה נדרש כדי לבנות גוף ברמה הגבוהה ביותר, שנראה טוב בדיוק כמו שהוא מתפקד. דרך אימונים אישיים מקצועיים וייעוץ תזונתי מדויק בעספיא, נהפוך את נקודות התורפה שלכם לנשק החזק ביותר שלכם.</p>
+            <div style="display: flex; gap: 2rem;">
+                <div><h3 style="color: var(--primary)">🏆</h3><small>מקום 2 ב-IBFF</small></div>
+                <div><h3 style="color: var(--primary)">🏋️‍♂️</h3><small>מאמן אישי</small></div>
+                <div><h3 style="color: var(--primary)">🥗</h3><small>ייעוץ תזונה</small></div>
+            </div>
+        </div>
+        <div class="glass-card reveal" style="background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; min-height: 400px; border: none;">
+            </div>
+    </div>
+</section>
+
+<section id="why" style="background: rgba(255,255,255,0.01)">
+    <h2 class="reveal" style="text-align: center;">התוכנית</h2>
+    <div class="grid">
+        <div class="glass-card reveal">
+            <span class="step-num">01</span>
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">היפרטרופיה מותאמת</h3>
+            <p>כל סט מותאם למבנה העצמות וחיבורי השריר שלכם כדי לפסל הגדרה חדה ופרופורציות טבעיות. אנחנו בונים, לא סתם "מרימים".</p>
+        </div>
+        <div class="glass-card reveal">
+            <span class="step-num">02</span>
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">תזונה נכונה</h3>
+            <p>האימון הורס את השריר; התזונה בונה אותו. קבלו ייעוץ תזונתי מותאם אישית כדי לתדלק את הגוף, לייעל התאוששות ולחטב.</p>
+        </div>
+        <div class="glass-card reveal">
+            <span class="step-num">03</span>
+            <h3 style="color: var(--primary); margin-bottom: 1rem;">מיינדסט של אלופים</h3>
+            <p>הגוף הולך בעקבות התודעה. אנחנו בונים את המשמעת והחוסן המנטלי שיהפכו את התוצאות שלכם לקבועות.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="contact-form glass-card reveal">
+        <h2 style="font-size: 2.5rem; text-align: center; margin-bottom: 1rem;">הגשת מועמדות לאימון</h2>
+        <p style="text-align: center; margin-bottom: 3rem; opacity: 0.7;">מספר המקומות מוגבל. אני עובד רק עם מי שמוכן להתחייב.</p>
+        
+        <form action="#">
+            <div class="input-group">
+                <input type="text" placeholder="שם מלא" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="כתובת אימייל" required>
+            </div>
+            <div class="input-group">
+                <select>
+                    <option disabled selected>המטרה שלך</option>
+                    <option>עלייה במסת שריר</option>
+                    <option>חיטוב / ירידה בשומן</option>
+                    <option>הכנה לתחרויות (Classic Physique)</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <textarea rows="4" placeholder="ספר/י לי על מטרות הכושר הנוכחיות שלך..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">שליחת בקשה</button>
+        </form>
+    </div>
+</section>
+
+<footer>
+    <div style="text-align: center; opacity: 0.5; padding: 2rem;">
+        <p>&copy; 2026 שאדי כיוף • עספיא</p>
+    </div>
+</footer>
+
+<script>
+    // --- BACKGROUND ENGINE ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class P {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.s = Math.random() * 2 + 1;
+            this.vX = (Math.random() - 0.5) * 0.5;
+            this.vY = (Math.random() - 0.5) * 0.5;
+            this.a = Math.random();
+        }
+        draw() {
+            ctx.fillStyle = `rgba(0, 242, 255, ${this.a * 0.3})`;
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill();
+            this.x += this.vX; this.y += this.vY;
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        }
+    }
+    for(let i=0; i<150; i++) particles.push(new P());
+    function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => p.draw()); requestAnimationFrame(loop); }
+    loop();
+
+    // --- REVEAL ANIMATIONS ---
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray(".reveal").forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: { trigger: el, start: "top 90%" },
+            y: 40, opacity: 0, duration: 1, ease: "power3.out"
+        });
+    });
+</script>
+
+</body>
+</html>
