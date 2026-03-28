@@ -19,16 +19,27 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Heebo', sans-serif; scroll-behavior: smooth; }
         body { background: var(--bg); color: white; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- INSANE BACKGROUND --- */
+        /* --- BACKGROUND CANVAS --- */
         #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
         /* --- NAVIGATION --- */
         nav {
-            position: fixed; width: 100%; padding: 1.5rem 5%; display: flex; 
+            position: fixed; width: 100%; padding: 0.8rem 5%; display: flex; 
             justify-content: space-between; align-items: center; z-index: 1000;
             backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
         }
-        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -1px; color: var(--primary); text-transform: uppercase; }
+        
+        /* Fixed Nav Logo Style */
+        .nav-logo-container img {
+            height: 60px;
+            width: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .nav-logo-container img:hover {
+            transform: scale(1.05);
+        }
+
         .nav-links a { color: white; text-decoration: none; margin-right: 2rem; font-size: 1rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
         .nav-links a:hover { color: var(--primary); }
 
@@ -40,7 +51,6 @@
         /* --- SECTIONS --- */
         section { padding: 120px 10%; position: relative; }
         h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; margin-bottom: 3rem; text-transform: uppercase; }
-
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 
         /* --- GLASS CARDS --- */
@@ -58,14 +68,12 @@
 
         /* --- FORM --- */
         .contact-form { max-width: 600px; margin: 0 auto; }
-        .input-group { margin-bottom: 1.5rem; position: relative; }
         input, textarea, select {
             width: 100%; padding: 1.2rem; background: rgba(255,255,255,0.05);
             border: 1px solid var(--border); border-radius: 12px; color: white; outline: none; transition: 0.3s;
-            font-family: inherit;
+            font-family: inherit; margin-bottom: 1.5rem;
         }
         input:focus, textarea:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0,242,255,0.2); }
-        select option { background: var(--bg); color: white; }
         button.submit-btn {
             width: 100%; padding: 1.2rem; background: var(--primary); color: black;
             border: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; font-size: 1.1rem;
@@ -73,11 +81,14 @@
         }
         button.submit-btn:hover { letter-spacing: 1px; box-shadow: 0 0 30px var(--primary); }
 
-        /* --- UTILITIES --- */
         .gradient-text { background: linear-gradient(45deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .step-num { font-size: 5rem; font-weight: 900; opacity: 0.1; position: absolute; top: 10px; left: 20px; }
 
-        @media (max-width: 768px) {
+        /* Mobile Adjustments */
+        @media (max-width: 992px) {
+            .side-by-side { flex-direction: column !important; text-align: center !important; }
+            .side-by-side > div { width: 100% !important; text-align: center !important; }
+            .side-by-side .icons { justify-content: center !important; }
             nav { padding: 1rem; }
             .nav-links { display: none; }
         }
@@ -88,33 +99,63 @@
 <canvas id="bg-canvas"></canvas>
 
 <nav>
-    <div class="logo">Shady Kayouf</div>
     <div class="nav-links">
         <a href="#about">אודות</a>
         <a href="#why">השיטה</a>
         <a href="#contact">הצטרפו עכשיו</a>
+    </div>
+    <div class="nav-logo-container">
+        <a href="#">
+            <img src="shady-logo.png" alt="שאדי כיוף">
+        </a>
     </div>
 </nav>
 
 <section class="hero">
     <h1 class="reveal">גוף של<br><span>אלופים</span></h1>
     <p class="reveal" style="max-width: 700px; font-size: 1.2rem; opacity: 0.8;">העולם לא צריך עוד מאמנים בינוניים. אתם צריכים תוכנית מבוססת נתונים לאסתטיקה מטורפת, תזונה נכונה וביצועי שיא.</p>
-    <a href="#contact" class="glass-card reveal" style="margin-top: 3rem; padding: 1rem 3rem; color: var(--primary); font-weight: 800; text-decoration: none;">התחילו את השינוי שלכם ←</a>
+    <a href="#about" class="glass-card reveal" style="margin-top: 3rem; padding: 1rem 3rem; color: var(--primary); font-weight: 800; text-decoration: none;">התחילו את השינוי שלכם ←</a>
 </section>
 
 <section id="about">
-    <div class="grid">
-        <div class="reveal">
-            <h2 class="gradient-text">המשימה</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">אני שאדי כיוף. כסגן אלוף IBFF.MBC לשנת 2023 בקטגוריית Classic Physique, אני יודע בדיוק מה נדרש כדי לבנות גוף ברמה הגבוהה ביותר, שנראה טוב בדיוק כמו שהוא מתפקד. דרך אימונים אישיים מקצועיים וייעוץ תזונתי מדויק בעספיא, נהפוך את נקודות התורפה שלכם לנשק החזק ביותר שלכם.</p>
-            <div style="display: flex; gap: 2rem;">
-                <div><h3 style="color: var(--primary)">🏆</h3><small>מקום 2 ב-IBFF</small></div>
-                <div><h3 style="color: var(--primary)">🏋️‍♂️</h3><small>מאמן אישי</small></div>
-                <div><h3 style="color: var(--primary)">🥗</h3><small>ייעוץ תזונה</small></div>
+    <div class="side-by-side reveal" style="display: flex; align-items: center; justify-content: space-between; gap: 4rem;">
+        
+        <div style="flex: 1.2; text-align: right;">
+            <h2 class="gradient-text" style="margin-bottom: 1.5rem;">המשימה</h2>
+            <p style="font-size: 1.25rem; margin-bottom: 2rem; line-height: 1.8;">
+                אני שאדי כיוף. כסגן אלוף IBFF.MBC לשנת 2023 בקטגוריית Classic Physique, 
+                אני יודע בדיוק מה נדרש כדי לבנות גוף ברמה הגבוהה ביותר, שנראה טוב בדיוק כמו שהוא מתפקד. 
+                דרך אימונים אישיים מקצועיים וייעוץ תזונתי מדויק בעספיא, נהפוך את נקודות התורפה שלכם לנשק החזק ביותר שלכם.
+            </p>
+            <div class="icons" style="display: flex; gap: 2rem; justify-content: flex-start; flex-wrap: wrap;">
+                <div style="text-align: center;"><h3 style="color: var(--primary); font-size: 2rem;">🏆</h3><small>מקום 2 ב-IBFF</small></div>
+                <div style="text-align: center;"><h3 style="color: var(--primary); font-size: 2rem;">🏋️‍♂️</h3><small>מאמן אישי</small></div>
+                <div style="text-align: center;"><h3 style="color: var(--primary); font-size: 2rem;">🥗</h3><small>ייעוץ תזונה</small></div>
             </div>
         </div>
-        <div class="glass-card reveal" style="background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800') center/cover; min-height: 400px; border: none;">
-            </div>
+
+        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2.5rem;">
+            <img src="shady-logo.png" alt="שאדי כיוף" style="width: 100%; max-width: 450px; height: auto; display: block;">
+            
+            <a href="#contact" style="
+                display: inline-block;
+                padding: 1.2rem 4rem;
+                background: none;
+                color: white;
+                border: 2px solid white;
+                font-weight: 700;
+                font-size: 1.8rem;
+                text-decoration: none;
+                transition: 0.3s;
+                text-align: center;
+                width: 100%;
+                max-width: 320px;
+            " onmouseover="this.style.background='white'; this.style.color='black';" 
+               onmouseout="this.style.background='none'; this.style.color='white';">
+                הצטרפו עכשיו
+            </a>
+        </div>
+
     </div>
 </section>
 
@@ -145,23 +186,15 @@
         <p style="text-align: center; margin-bottom: 3rem; opacity: 0.7;">מספר המקומות מוגבל. אני עובד רק עם מי שמוכן להתחייב.</p>
         
         <form action="#">
-            <div class="input-group">
-                <input type="text" placeholder="שם מלא" required>
-            </div>
-            <div class="input-group">
-                <input type="email" placeholder="כתובת אימייל" required>
-            </div>
-            <div class="input-group">
-                <select>
-                    <option disabled selected>המטרה שלך</option>
-                    <option>עלייה במסת שריר</option>
-                    <option>חיטוב / ירידה בשומן</option>
-                    <option>הכנה לתחרויות (Classic Physique)</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <textarea rows="4" placeholder="ספר/י לי על מטרות הכושר הנוכחיות שלך..."></textarea>
-            </div>
+            <input type="text" placeholder="שם מלא" required>
+            <input type="email" placeholder="כתובת אימייל" required>
+            <select>
+                <option disabled selected>המטרה שלך</option>
+                <option>עלייה במסת שריר</option>
+                <option>חיטוב / ירידה בשומן</option>
+                <option>הכנה לתחרויות (Classic Physique)</option>
+            </select>
+            <textarea rows="4" placeholder="ספר/י לי על מטרות הכושר הנוכחיות שלך..."></textarea>
             <button type="submit" class="submit-btn">שליחת בקשה</button>
         </form>
     </div>
@@ -203,7 +236,7 @@
     function loop() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => p.draw()); requestAnimationFrame(loop); }
     loop();
 
-    // --- REVEAL ANIMATIONS ---
+    // --- REVEAL ANIMATIONS (STAYS THE SAME) ---
     gsap.registerPlugin(ScrollTrigger);
     gsap.utils.toArray(".reveal").forEach(el => {
         gsap.from(el, {
